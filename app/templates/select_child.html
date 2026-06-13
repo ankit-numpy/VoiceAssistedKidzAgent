@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Select Child - Voice Assisted KidzAgent{% endblock %}
+
+{% block content %}
+<div class="select-page">
+    <h1>👧 Who's Reading Today?</h1>
+    <p class="subtitle">Select a child to continue</p>
+    
+    <div class="children-grid">
+        {% if children %}
+            {% for child in children %}
+            <div class="child-card">
+                <div class="child-avatar">{{ child.name[0].upper() }}</div>
+                <h3>{{ child.name }}</h3>
+                <p class="child-age">Age {{ child.age }}</p>
+                <p class="child-level">Reading Level: {{ child.reading_level|title }}</p>
+                <a href="{{ url_for('main.select_passage', child_id=child.id) }}" class="btn btn-primary">Select</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>No children added yet. Please contact an administrator.</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="back-button">
+        <a href="{{ url_for('main.index') }}" class="btn btn-secondary">← Back to Home</a>
+    </div>
+</div>
+{% endblock %}

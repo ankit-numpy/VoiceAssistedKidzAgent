@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Reading Session - Voice Assisted KidzAgent{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/session.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="reading-session">
+    <div class="session-header">
+        <h1>Reading: {{ passage.title }}</h1>
+        <p class="reader">with {{ child.name }}</p>
+    </div>
+    
+    <div class="session-controls">
+        <button id="startBtn" class="btn btn-success">🎤 Start Recording</button>
+        <button id="stopBtn" class="btn btn-danger" disabled>⏹️ Stop Recording</button>
+        <div class="timer" id="sessionTimer">00:00</div>
+    </div>
+    
+    <div class="passage-container">
+        <div class="passage-text" id="passageText">
+            {{ passage.content }}
+        </div>
+    </div>
+    
+    <div class="feedback-panel" id="feedbackPanel" style="display: none;">
+        <div class="feedback-item">
+            <p class="word-feedback" id="wordFeedback"></p>
+            <p class="correction" id="correction"></p>
+            <p class="explanation" id="explanation"></p>
+            <p class="encouragement" id="encouragement"></p>
+        </div>
+    </div>
+    
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+    <p class="progress-text" id="progressText">Tap a word to start</p>
+    
+    <div class="session-buttons">
+        <button id="endSessionBtn" class="btn btn-secondary">End Session</button>
+    </div>
+</div>
+
+<input type="hidden" id="sessionId" value="{{ session.id }}">
+<input type="hidden" id="passageId" value="{{ passage.id }}">
+<input type="hidden" id="childId" value="{{ child.id }}">
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/session.js') }}"></script>
+{% endblock %}

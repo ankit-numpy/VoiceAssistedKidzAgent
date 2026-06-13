@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}About - Voice Assisted KidzAgent{% endblock %}
+
+{% block content %}
+<div class="about-page">
+    <h1>About KidzAgent</h1>
+    
+    <section class="about-section">
+        <h2>Our Mission</h2>
+        <p>
+            Voice Assisted KidzAgent is a privacy-first, voice-based "reading buddy" designed for kids ages 5–8 to practice reading aloud at home in short, parent-nearby sessions. 
+            We believe that learning should be safe, supportive, and effective without compromising privacy.
+        </p>
+    </section>
+    
+    <section class="about-section">
+        <h2>How It Works</h2>
+        <ol>
+            <li><strong>Start a Session:</strong> Choose a reading passage from our carefully curated collection.</li>
+            <li><strong>Read Aloud:</strong> Read the passage while KidzAgent listens in real time.</li>
+            <li><strong>Get Feedback:</strong> Receive gentle corrections and explanations for any words you stumble on.</li>
+            <li><strong>Build Confidence:</strong> Earn encouraging messages and track your progress over time.</li>
+        </ol>
+    </section>
+    
+    <section class="about-section">
+        <h2>Why KidzAgent?</h2>
+        <ul>
+            <li><strong>Safety First:</strong> Built to provide kid-safe responses by default. No ads, no data collection.</li>
+            <li><strong>Effective Learning:</strong> Focuses on real outcomes: decoding, pronunciation, and comprehension.</li>
+            <li><strong>Parent-Friendly:</strong> Works best with a parent nearby. Includes a parental dashboard to track progress.</li>
+            <li><strong>Low Friction:</strong> Short sessions (5-15 minutes) fit easily into busy family schedules.</li>
+        </ul>
+    </section>
+    
+    <section class="about-section">
+        <h2>Privacy & Safety</h2>
+        <p>
+            KidzAgent is designed with children's privacy and safety as core principles:
+        </p>
+        <ul>
+            <li>No personal data collection beyond what's needed for reading sessions</li>
+            <li>All AI responses are filtered for age-appropriateness</li>
+            <li>Audio is processed securely and not stored permanently</li>
+            <li>Parental controls ensure appropriate content</li>
+        </ul>
+    </section>
+    
+    <section class="about-section">
+        <h2>Expected Impact</h2>
+        <ul>
+            <li>More frequent, low-friction reading practice for early readers</li>
+            <li>Reduced stress for families trying to fit reading support into busy schedules</li>
+            <li>A clear example of how to design child-friendly, privacy-first voice AI</li>
+        </ul>
+    </section>
+    
+    <section class="about-section about-cta">
+        <p>Ready to start? <a href="{{ url_for('main.select_child') }}" class="btn btn-primary">Begin Your Journey</a></p>
+    </section>
+</div>
+{% endblock %}

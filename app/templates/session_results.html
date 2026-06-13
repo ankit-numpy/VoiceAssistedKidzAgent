@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Session Results - Voice Assisted KidzAgent{% endblock %}
+
+{% block content %}
+<div class="results-page">
+    <h1>🎉 Great Job!</h1>
+    
+    <div class="results-card">
+        <h2>Your Reading Results</h2>
+        
+        <div class="results-grid">
+            <div class="result-item">
+                <span class="result-label">Accuracy</span>
+                <span class="result-value">{{ "%.1f"|format(session.accuracy_percentage) }}%</span>
+            </div>
+            
+            <div class="result-item">
+                <span class="result-label">Words Read</span>
+                <span class="result-value">{{ session.words_read_correctly }} / {{ session.total_words }}</span>
+            </div>
+            
+            <div class="result-item">
+                <span class="result-label">Duration</span>
+                <span class="result-value">{{ session.duration_seconds // 60 }}:{{ "%02d"|format(session.duration_seconds % 60) }}</span>
+            </div>
+        </div>
+        
+        <div class="results-message">
+            {% if session.accuracy_percentage >= 90 %}
+                <p>🌟 Amazing work! You're an excellent reader!</p>
+            {% elif session.accuracy_percentage >= 75 %}
+                <p>👏 Excellent job! You read very well!</p>
+            {% elif session.accuracy_percentage >= 60 %}
+                <p>😊 Great effort! Keep practicing and you'll improve even more!</p>
+            {% else %}
+                <p>💪 Keep practicing! Every read makes you stronger!</p>
+            {% endif %}
+        </div>
+        
+        {% if session.feedback_items %}
+        <div class="feedback-summary">
+            <h3>Words You Learned:</h3>
+            <div class="words-learned">
+                {% for feedback in session.feedback_items[:5] %}
+                    {% if not feedback.is_correct %}
+                    <div class="learned-word">
+                        <span class="word">{{ feedback.word_expected }}</span>
+                        <span class="hint">{{ feedback.explanation }}</span>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="results-actions">
+        <a href="{{ url_for('main.select_passage', child_id=session.child.id) }}" class="btn btn-primary btn-lg">Read Another Story</a>
+        <a href="{{ url_for('main.select_child') }}" class="btn btn-secondary btn-lg">Switch Reader</a>
+        <a href="{{ url_for('main.index') }}" class="btn btn-secondary btn-lg">Go Home</a>
+    </div>
+</div>
+{% endblock %}

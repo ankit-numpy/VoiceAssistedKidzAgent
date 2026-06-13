@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Voice Assisted KidzAgent{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+    <h1>👨‍👩‍👧 Parental Dashboard</h1>
+    <p class="subtitle">Track your children's reading progress</p>
+    
+    <div class="children-progress-grid">
+        {% if children %}
+            {% for child in children %}
+            <div class="progress-card">
+                <h3>{{ child.name }}</h3>
+                <p class="age">Age {{ child.age }}</p>
+                
+                <div class="stat">
+                    <span class="label">Sessions Completed</span>
+                    <span class="value">{{ child.reading_sessions|length }}</span>
+                </div>
+                
+                {% set avg_accuracy = (child.reading_sessions | map(attribute='accuracy_percentage') | list | sum / (child.reading_sessions | length) if child.reading_sessions else 0) %}
+                <div class="stat">
+                    <span class="label">Average Accuracy</span>
+                    <span class="value">{{ "%.1f"|format(avg_accuracy) }}%</span>
+                </div>
+                
+                <div class="stat">
+                    <span class="label">Reading Level</span>
+                    <span class="value">{{ child.reading_level|title }}</span>
+                </div>
+                
+                {% if child.reading_sessions %}
+                <div class="recent-sessions">
+                    <h4>Recent Sessions</h4>
+                    <ul>
+                        {% for session in child.reading_sessions[-3:]|reverse %}
+                        <li>
+                            <span>{{ session.passage.title }}</span>
+                            <span class="accuracy">{{ "%.0f"|format(session.accuracy_percentage) }}%</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>No children tracked yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

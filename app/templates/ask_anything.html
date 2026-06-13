@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Ask Anything - Voice Assisted KidzAgent{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ask.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="ask-anything-page">
+    <div class="ask-header">
+        <h1>🎤 Ask Anything</h1>
+        <p class="subtitle">Ask me a question and I'll give you an answer just right for you!</p>
+    </div>
+
+    <!-- Age Display -->
+    <div class="age-detector-box" id="ageBox" style="display: none;">
+        <div class="age-display">
+            <span class="age-icon">👤</span>
+            <div class="age-info">
+                <p class="age-label">Your Age Level:</p>
+                <p class="age-value" id="ageValue">-</p>
+                <p class="age-confidence" id="ageConfidence"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Input Section -->
+    <div class="input-section">
+        <div class="voice-input-box">
+            <button id="voiceInputBtn" class="btn btn-voice">
+                <span class="mic-icon">🎙️</span>
+                <span id="voiceInputText">Click or Say Your Question</span>
+            </button>
+            <p class="input-hint">Click the button and speak your question, or type it below</p>
+        </div>
+
+        <!-- Text Input Alternative -->
+        <div class="text-input-box">
+            <textarea 
+                id="questionInput" 
+                class="question-textarea" 
+                placeholder="Type your question here..."
+                rows="3"></textarea>
+            <div class="input-buttons">
+                <button id="submitBtn" class="btn btn-primary">Ask KidzAgent</button>
+                <button id="clearBtn" class="btn btn-secondary">Clear</button>
+            </div>
+        </div>
+
+        <!-- Age Selection (Optional Override) -->
+        <div class="age-selector">
+            <label for="ageSelect">Or tell me your age:</label>
+            <select id="ageSelect" class="age-select">
+                <option value="">Auto-detect</option>
+                <option value="5">5 years old</option>
+                <option value="6">6 years old</option>
+                <option value="7">7 years old</option>
+                <option value="8">8 years old</option>
+                <option value="9">9 years old</option>
+                <option value="10">10 years old</option>
+                <option value="11">11 years old</option>
+                <option value="12">12 years old</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" id="loadingState" style="display: none;">
+        <div class="spinner"></div>
+        <p>Thinking about your question...</p>
+    </div>
+
+    <!-- Answer Section -->
+    <div class="answer-section" id="answerSection" style="display: none;">
+        <div class="answer-box">
+            <div class="answer-header">
+                <span class="answer-icon">✨</span>
+                <h2>KidzAgent's Answer</h2>
+            </div>
+
+            <!-- Your Question Display -->
+            <div class="question-display">
+                <p class="question-label">Your Question:</p>
+                <p class="question-text" id="displayQuestion"></p>
+            </div>
+
+            <!-- Age Display in Answer -->
+            <div class="answer-age-badge" id="answerAgeBadge">
+                <span id="ageEmoji">👤</span>
+                <span id="ageText">Age</span>
+            </div>
+
+            <!-- Answer Text -->
+            <div class="answer-text-box">
+                <p class="answer-text" id="answerText"></p>
+            </div>
+
+            <!-- Feedback -->
+            <div class="feedback-section">
+                <p class="feedback-label">Did this help?</p>
+                <div class="feedback-buttons">
+                    <button class="btn btn-small btn-positive" onclick="recordFeedback(true)">👍 Yes!</button>
+                    <button class="btn btn-small btn-negative" onclick="recordFeedback(false)">👎 Not Really</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer-actions">
+            <button id="askAnotherBtn" class="btn btn-primary btn-lg">Ask Another Question</button>
+            <button id="backHomeBtn" class="btn btn-secondary btn-lg">Go Home</button>
+        </div>
+    </div>
+
+    <!-- History Section -->
+    <div class="history-section" id="historySection">
+        <h3>📚 Recent Questions</h3>
+        <div class="history-list" id="historyList">
+            <p class="empty-history">No questions asked yet. Ask your first question above!</p>
+        </div>
+    </div>
+
+    <!-- Error Display -->
+    <div class="error-box" id="errorBox" style="display: none;">
+        <p id="errorMessage"></p>
+        <button class="btn btn-secondary btn-sm" onclick="closeError()">Close</button>
+    </div>
+</div>
+
+<!-- Hidden session ID -->
+<input type="hidden" id="sessionId" value="{{ request.cookies.get('session_id', 'anonymous') }}">
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/ask.js') }}"></script>
+{% endblock %}

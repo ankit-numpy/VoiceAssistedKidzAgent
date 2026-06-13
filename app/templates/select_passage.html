@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Select Passage - Voice Assisted KidzAgent{% endblock %}
+
+{% block content %}
+<div class="select-page">
+    <h1>📖 Pick a Story</h1>
+    <p class="subtitle">{{ child.name }}, choose a passage to read</p>
+    
+    <div class="passages-grid">
+        {% if passages %}
+            {% for passage in passages %}
+            <div class="passage-card">
+                <h3>{{ passage.title }}</h3>
+                <p class="difficulty">Level: {{ passage.difficulty_level|title }}</p>
+                <p class="duration">⏱️ {{ passage.estimated_duration }} min</p>
+                <p class="preview">{{ passage.content[:80] }}...</p>
+                <a href="{{ url_for('session.start', passage_id=passage.id, child_id=child.id) }}" class="btn btn-primary">Start Reading</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>No passages available for this age group yet. Check back soon!</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="back-button">
+        <a href="{{ url_for('main.select_child') }}" class="btn btn-secondary">← Back to Child Selection</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Voice Assisted KidzAgent{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>🎤 Welcome to KidzAgent</h1>
+    <p class="subtitle">Your Privacy-First Reading Buddy</p>
+    <p class="description">Practice reading aloud with an AI that listens, learns, and encourages you every step of the way.</p>
+    
+    <div class="cta-buttons">
+        <a href="{{ url_for('main.select_child') }}" class="btn btn-primary btn-lg">Start Reading Session</a>
+        <a href="{{ url_for('main.ask_anything') }}" class="btn btn-secondary btn-lg">Ask Anything</a>
+        <a href="{{ url_for('main.about') }}" class="btn btn-secondary btn-lg">Learn More</a>
+    </div>
+</div>
+
+<div class="features-grid">
+    <div class="feature-card">
+        <div class="feature-icon">👂</div>
+        <h3>Real-Time Listening</h3>
+        <p>KidzAgent listens as you read and provides instant feedback on pronunciation.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3>Kid-Friendly Explanations</h3>
+        <p>Learn what new words mean in language designed just for kids.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">�</div>
+        <h3>Ask Anything</h3>
+        <p>Ask me any question and I'll give you an answer perfect for your age!</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">�🎉</div>
+        <h3>Encouraging Feedback</h3>
+        <p>Get positive, supportive messages that build your reading confidence.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Privacy First</h3>
+        <p>Your data stays safe. We don't collect personal information unnecessarily.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Progress Tracking</h3>
+        <p>Parents can see reading progress and areas where kids are improving.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">⏱️</div>
+        <h3>Short Sessions</h3>
+        <p>Perfect 5-15 minute sessions that fit into busy family schedules.</p>
+    </div>
+</div>
+{% endblock %}
